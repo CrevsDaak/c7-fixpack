@@ -1,0 +1,78 @@
+
+//fix_bgt_voicesets.tpa
+// Time-stamp: </Users/nclotta/c7-fixpack/lib/fix_bgt_voicesets.tpa, 2026-05-24 Sunday 15:11:03 nclotta>
+
+ACTION_FOR_EACH npc IN
+  ajanti ajanti4 ajanti6
+  bgxan xan4 xan6
+  bgxzar xzar2 xzar4 xzar6
+  branwe branwe5
+  coran coran5
+  jaheir jaheir2 jaheir4 jaheir6
+  dynahe dynahe2 dynahe4 dynahe6
+  edwin edwin2 edwin4 edwin6
+  eldoth eldoth5
+  kagain kagain2 kagain4 kagain6
+  kivan kivan4 kivan6
+  sharte sharte4 sharte6
+  minsc minsc2 minsc4 minsc6
+  imoen imoen1 imoen2 imoen4 imoen61
+  yeslic yeslic5
+  montar montar2 montar4 montar6
+  alora alora6
+  khalid khalid2 khalid4 khalid6
+  garric garric2 garric4 garric6
+  safana safana4 safana6
+  faldor faldor5
+  skie skie6
+  bgquayle quayle4 quayle6
+  tiax tiax4 tiax6
+  viconi viconi4 viconi61
+BEGIN
+  COPY_EXISTING "%npc%.cre" override
+    PATCH_IF SOURCE_SIZE > 0x2d4 BEGIN
+      sounds_left = 4
+      READ_LONG 0x130 action_4
+      READ_LONG 0x134 action_5
+      READ_LONG 0x138 action_6
+      READ_LONG 0x13c action_7
+      // add two to common selects, two into rare selects
+
+      PATCH_IF action_4 > 0 && (LONG_AT 0x118) < 0 BEGIN
+        WRITE_LONG 0x118 action_4
+        WRITE_LONG 0x130 "-1"
+        --sounds_left
+      END ELSE PATCH_IF action_4 > 0 && (LONG_AT 0x120) < 0 BEGIN
+        WRITE_LONG 0x120 action_4
+        WRITE_LONG 0x130 "-1"
+        --sounds_left
+      END
+
+      PATCH_IF action_5 > 0 && (LONG_AT 0x11c) < 0 BEGIN
+        WRITE_LONG 0x11c action_5
+        WRITE_LONG 0x134 "-1"
+        --sounds_left
+      END
+
+      PATCH_IF action_6 > 0 && (LONG_AT 0x120) < 0 BEGIN
+        WRITE_LONG 0x120 action_6
+        WRITE_LONG 0x138 "-1"
+        --sounds_left
+      END ELSE PATCH_IF action_6 > 0 && (LONG_AT 0x1a0) < 0 BEGIN
+        WRITE_LONG 0x1a0 action_6
+        WRITE_LONG 0x138 "-1"
+        --sounds_left
+      END
+
+      PATCH_IF action_7 > 0 && (LONG_AT 0x1a4) < 0 BEGIN
+        WRITE_LONG 0x1a4 action_7
+        WRITE_LONG 0x13c "-1"
+        --sounds_left
+      END
+
+      PATCH_IF sounds_left > 0 BEGIN
+        PATCH_PRINT ~%npc%.cre: %sounds_left% sound(s) left in place!~
+      END
+    END
+  BUT_ONLY IF_EXISTS
+END

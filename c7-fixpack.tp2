@@ -1,7 +1,7 @@
 BACKUP "weidu_external/backup/c7-fixpack"
 AUTHOR "crevs.daak@gmail.com"
 
-VERSION "v1.3"
+VERSION "v1.4"
 
 LANGUAGE
   English
@@ -26,5 +26,12 @@ REQUIRE_PREDICATE !ENGINE_IS ~totsc bg1 pst~ @310
 LABEL ~c7_fireshield_fix~
 
 INCLUDE "%MOD_FOLDER%/lib/fix_all_fireshields.tpa"
+
+BEGIN @400 DESIGNATED 400
+LABEL ~c7_fix_bgt_sounds~
+REQUIRE_COMPONENT "bgt.tp2" 0 @410
+FORBID_COMPONENT "tobex_afterlife.tp2" 200 @411
+
+INCLUDE "%MOD_FOLDER%/lib/fix_bgt_voicesets.tpa"
 
 // eof

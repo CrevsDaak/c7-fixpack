@@ -4,3 +4,6 @@
 @210 = ~This fixer assumes and requires BG2:ToB and ToBEx.~
 @300 = ~Fix all possible instances of Fireshield damage loops~
 @310 = ~This fix cannot be applied if BG2 opcode 206 is not present.~
+@400 = ~Fix BGT vanilla BG1 companion soundsets for non ToBEx AfterLife games~
+@410 = ~This tool must be ran after BGT has already been installed!~
+@411 = ~This tool is not necessary nor recommended to run together with ToBEx AfterLife~
